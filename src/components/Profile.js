@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { setValue } from '../redux/user'
 
 // Validation schema using Yup
 const validationSchemaUsername = Yup.object().shape({
@@ -35,6 +36,7 @@ const validationSchemaPassword = Yup.object().shape({
 
 const Profile = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const FE_URL = 'http://localhost:3000'
   const token = localStorage.getItem('token')
@@ -43,19 +45,23 @@ const Profile = () => {
   const username = useSelector((state) => state.user.value.username)
 
   const [show, setShow] = useState(false)
+  const [image, setImage] = useState(null)
 
   const handleClick = () => {
     setShow(!show)
   }
 
   const handleFileChange = async (e) => {
+    const file = e.target.files[0]
+    // Lakukan sesuatu dengan file yang dipilih
+    setImage(file)
+  }
+
+  const updateImage = async () => {
     const header = {
       Authorization: `Bearer ${token}`,
     }
-
-    const file = e.target.files[0]
-    // Lakukan sesuatu dengan file yang dipilih
-
+    const file = image
     const bodyFormData = new FormData()
     bodyFormData.append('file', file)
 
@@ -65,9 +71,10 @@ const Profile = () => {
       { headers: header }
     )
 
-    console.log(
-      'image:',
-      `https://minpro-blog.purwadhikabootcamp.com/${res.imgProfile}`
+    dispatch(
+      setValue({
+        imgProfile: `https://minpro-blog.purwadhikabootcamp.com/${res.data.imgProfile}`,
+      })
     )
   }
 
@@ -168,7 +175,7 @@ const Profile = () => {
 
   return (
     <div>
-      <form mt="20px">
+      <div mt="20px">
         <div>
           <label htmlFor="file">Profile Picture</label>
           <input
@@ -182,10 +189,10 @@ const Profile = () => {
             onChange={handleFileChange}
           />
         </div>
-        <button type="submit" mt="30px" h="30px" w="90px">
+        <button mt="30px" h="30px" w="90px" onClick={updateImage}>
           Submit
         </button>
-      </form>
+      </div>
 
       <Formik
         initialValues={{
