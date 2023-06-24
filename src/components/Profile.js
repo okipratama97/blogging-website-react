@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { logoutUser } from '../redux/redux'
 
 // Validation schema using Yup
 const validationSchemaUsername = Yup.object().shape({
@@ -35,6 +36,7 @@ const validationSchemaPassword = Yup.object().shape({
 
 const Profile = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const FE_URL = 'http://localhost:3000'
   const token = localStorage.getItem('token')
@@ -166,6 +168,17 @@ const Profile = () => {
     }, 3000)
   }
 
+  const handleLogout = () => {
+    // Hapus token dari local storage
+    localStorage.removeItem('token');
+    
+    // Dispatch action logoutUser untuk menghapus data user dari Redux store
+    dispatch(logoutUser);
+
+    // Redirect ke halaman login
+    navigate('/login');
+  };
+
   return (
     <div>
       <form mt="20px">
@@ -280,6 +293,9 @@ const Profile = () => {
               Submit
             </button>
           </div>
+            <div>
+          <button onClick={handleLogout}>Logout</button>
+            </div>
         </Form>
       </Formik>
 

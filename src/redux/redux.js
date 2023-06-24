@@ -11,8 +11,11 @@ const redux = createSlice({
     setValue: (state, action) => {
       state.value = action.payload
     },
+    logoutUser: (state) => {
+      state.value = {} // Menghapus data pengguna saat logout
+    },
   },
 })
 
-export const { setValue } = redux.actions
+export const { setValue, logoutUser } = redux.actions
 export default redux.reducer
