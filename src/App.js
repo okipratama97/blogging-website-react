@@ -4,6 +4,10 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 // Import components
+import { Home } from './components/Home'
+import { useDispatch } from 'react-redux'
+import { setValue } from './redux/user'
+
 import RegisterForm from './components/RegistrationForm'
 import VerifyAccountPage from './components/VerifyAccountPage'
 import LoginForm from './components/LoginForm'
@@ -16,11 +20,8 @@ import FavoriteBlogsPage from './components/FavoriteBlogPage'
 import CreateBlogForm from './components/CreateBlogForm'
 import BlogDetailPage from './components/BlogDetailPage'
 import FilterAndSortBlogs from './components/FilterAndSortBlogs'
-import { Home } from './components/Home'
 import Profile from './components/Profile'
-import { useDispatch } from 'react-redux'
 import axios, { Axios } from 'axios'
-import { setValue } from './redux/user'
 
 const App = () => {
   const token = localStorage.getItem("token")

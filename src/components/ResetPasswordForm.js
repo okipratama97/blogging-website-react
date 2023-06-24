@@ -1,47 +1,82 @@
-// Reset Password form
-// Using Formik and Yup validator for input user data
-
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-// Validation schema using Yup
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-});
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+import axios from "axios";
 
 const ResetPasswordForm = () => {
-  // Handle form submission
-  const onSubmit = (values, { setSubmitting }) => {
-    // Perform reset password logic, e.g., send data to the server
-    console.log(values);
+  const [success, setSuccess] = useState(false);
 
-    // Reset form fields and set submitting state
-    setSubmitting(false);
+  const ResetSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Email tidak valid")
+      .required("Email harus diisi"),
+  });
+
+  const onReset = async (data) => {
+    try {
+      const response = await axios.put(
+        "https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass",
+        data
+      );
+      setSuccess(true);
+      console.log(response);
+    } catch (err) {
+      setSuccess(false);
+      alert(err.response.data);
+    }
   };
+  
 
   return (
-    <div>
-      <h2>Reset Password</h2>
+    <Formik
+    initialValues={{ email: "" }}
+    validationSchema={ResetSchema}
+    onSubmit={(values, actions) => {
+      actions.preventDefault(); // Menambahkan preventDefault
+      onReset(values);
+      if (success) {
+        actions.resetForm();
+      }
+    }}
+  >
       <Formik
-        initialValues={{
-          email: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        <Form>
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
-          </div>
-          <div>
-            <button type="submit">Reset Password</button>
-          </div>
-        </Form>
-      </Formik>
-    </div>
+  initialValues={{ email: '' }}
+  validationSchema={ResetSchema}
+  onSubmit={(values, actions) => {
+    onReset(values);
+    actions.resetForm();
+    setSuccess(true);
+  }}
+>
+  {(props) => (
+    <form onSubmit={props.handleSubmit}>
+      {success && (
+        <p>We'll send you an email to change your password</p>
+      )}
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value={props.values.email}
+          onChange={props.handleChange}
+          onBlur={props.handleBlur}
+        />
+        {props.errors.email && props.touched.email && (
+          <div>{props.errors.email}</div>
+        )}
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+      <a href="http://localhost:3000/login">Back to login</a>
+    </form>
+  )}
+</Formik>
+
+
+    </Formik>
   );
 };
 
