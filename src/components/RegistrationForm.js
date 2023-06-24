@@ -51,7 +51,7 @@ const RegisterForm = () => {
       })
       setTimeout(() => {
         navigate('/login')
-      }, 2000)
+      }, 3000)
     } catch (err) {
       console.log(err)
     }

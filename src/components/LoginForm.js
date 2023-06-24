@@ -6,6 +6,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setValue } from '../redux/redux'
 
 // Validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -15,6 +17,7 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // Handle form submission
   const onSubmit = async (values, { setSubmitting }) => {
@@ -35,6 +38,9 @@ const LoginForm = () => {
 
       // save token to local storage
       localStorage.setItem('token', res.data.token)
+
+      // save account data to redux
+      dispatch(setValue(res.data.isAccountExist))
 
       setTimeout(() => {
         navigate('/')
