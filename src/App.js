@@ -43,11 +43,10 @@ const App = () => {
       }
     }
   }
-  
+
   useEffect(() => {
     session()
   }, [])
-  
   
   return (
     <Router>
