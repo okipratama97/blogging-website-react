@@ -1,6 +1,6 @@
 // Main App component
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 // Import components
@@ -18,8 +18,30 @@ import BlogDetailPage from './components/BlogDetailPage'
 import FilterAndSortBlogs from './components/FilterAndSortBlogs'
 import { Home } from './components/Home'
 import Profile from './components/Profile'
+import { useDispatch } from 'react-redux'
+import axios, { Axios } from 'axios'
+import { setValue } from './redux/redux'
 
 const App = () => {
+  const token = localStorage.getItem("token")
+  console.log(token);
+  const dispatch = useDispatch();
+  
+  const session = async () => {
+      const res = await axios.get(
+        'https://minpro-blog.purwadhikabootcamp.com/api/auth/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      dispatch(setValue(res.data))
+      console.log(res.data);
+    
+  }
+  useEffect(() => {
+    session()
+  }, [])
+  
   return (
     <Router>
       <div>
