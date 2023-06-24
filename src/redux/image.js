@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: {},
+  value: null,
 }
 
-const redux = createSlice({
-  name: 'user',
+const image = createSlice({
+  name: 'image',
   initialState,
   reducers: {
     setValue: (state, action) => {
@@ -14,5 +14,5 @@ const redux = createSlice({
   },
 })
 
-export const { setValue } = redux.actions
-export default redux.reducer
+export const { setValue } = image.actions
+export default image.reducer
