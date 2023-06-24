@@ -20,7 +20,7 @@ import { Home } from './components/Home'
 import Profile from './components/Profile'
 import { useDispatch } from 'react-redux'
 import axios, { Axios } from 'axios'
-import { setValue } from './redux/redux'
+import { setValue } from './redux/user'
 
 const App = () => {
   const token = localStorage.getItem("token")
