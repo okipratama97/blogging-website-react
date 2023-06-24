@@ -17,7 +17,7 @@ import CreateBlogForm from './components/CreateBlogForm'
 import BlogDetailPage from './components/BlogDetailPage'
 import FilterAndSortBlogs from './components/FilterAndSortBlogs'
 import { Home } from './components/Home'
-import { Profile } from './components/Profile'
+import Profile from './components/Profile'
 
 const App = () => {
   return (
@@ -70,6 +70,10 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/verification/:token" element={<VerifyAccountPage />} />
+          <Route
+            path="/verification-change-email/:token"
+            element={<VerifyAccountPage />}
+          />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/change-password" element={<ChangePasswordForm />} />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
@@ -87,7 +91,6 @@ const App = () => {
             element={<FilterAndSortBlogs />}
           />
           <Route path="/profile" element={<Profile />} />
-
         </Routes>
       </div>
     </Router>
