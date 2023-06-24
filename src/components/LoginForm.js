@@ -1,7 +1,7 @@
 // Login form
 // Using Formik and Yup validator for input user data
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
@@ -18,6 +18,15 @@ const validationSchema = Yup.object().shape({
 const LoginForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (token) {
+      // If the user is already logged in, redirect the navigation to the home page
+      navigate('/');
+    }
+  }, []);
 
   // Handle form submission
   const onSubmit = async (values, { setSubmitting }) => {

@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { setValue } from '../redux/user'
+import { setValue, logoutUser } from '../redux/user'
 
 // Validation schema using Yup
 const validationSchemaUsername = Yup.object().shape({
@@ -173,6 +173,17 @@ const Profile = () => {
     }, 3000)
   }
 
+  const handleLogout = () => {
+    // Hapus token dari local storage
+    localStorage.removeItem('token');
+    
+    // Dispatch action logoutUser untuk menghapus data user dari Redux store
+    dispatch(logoutUser);
+
+    // Redirect ke halaman login
+    navigate('/login');
+  };
+
   return (
     <div>
       <div mt="20px">
@@ -287,6 +298,9 @@ const Profile = () => {
               Submit
             </button>
           </div>
+            <div>
+          <button onClick={handleLogout}>Logout</button>
+            </div>
         </Form>
       </Formik>
 

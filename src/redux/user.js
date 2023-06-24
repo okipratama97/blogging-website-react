@@ -11,8 +11,11 @@ const user = createSlice({
     setValue: (state, action) => {
       state.value = { ...state.value, ...action.payload }
     },
+    logoutUser: (state) => {
+      state.value = {} // Menghapus nilai pengguna saat logout
+    },
   },
 })
 
-export const { setValue } = user.actions
+export const { setValue, logoutUser } = user.actions
 export default user.reducer

@@ -28,16 +28,22 @@ const App = () => {
   const dispatch = useDispatch();
   
   const session = async () => {
-      const res = await axios.get(
-        'https://minpro-blog.purwadhikabootcamp.com/api/auth/', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      dispatch(setValue(res.data))
-      console.log(res.data);
-    
+    if (token) {
+      try {
+        const res = await axios.get('https://minpro-blog.purwadhikabootcamp.com/api/auth/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        dispatch(setValue(res.data))
+        console.log(res.data);
+      } catch (error) {
+        // Tangani kesalahan jika permintaan gagal
+        console.error('Error fetching session:', error)
+      }
+    }
   }
+
   useEffect(() => {
     session()
   }, [])
