@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setValue } from '../redux/redux'
+import { setValue } from '../redux/user'
 
 // Validation schema using Yup
 const validationSchema = Yup.object().shape({
