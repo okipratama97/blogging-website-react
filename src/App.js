@@ -17,6 +17,7 @@ import CreateBlogForm from './components/CreateBlogForm'
 import BlogDetailPage from './components/BlogDetailPage'
 import FilterAndSortBlogs from './components/FilterAndSortBlogs'
 import { Home } from './components/Home'
+import { Profile } from './components/Profile'
 
 const App = () => {
   return (
@@ -60,6 +61,9 @@ const App = () => {
             <li>
               <Link to="/filter-sort-blogs">Filter and Sort Blogs</Link>
             </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -82,6 +86,8 @@ const App = () => {
             path="/filter-and-sort-blogs"
             element={<FilterAndSortBlogs />}
           />
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
       </div>
     </Router>
