@@ -96,6 +96,9 @@ const App = () => {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
+            <li>
+              <Link to="/category">Category</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -124,8 +127,11 @@ const App = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/business" element={<SelectCategory />} />
+          <Route path="/category/" element={<CategoryPage />} />
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/reset-password/:resetToken" element={<ResetPasswordForm />} />
+          <Route path="/blog/:blogId" element={<BlogDetailPage />} />
+
 
         </Routes>
       </div>
