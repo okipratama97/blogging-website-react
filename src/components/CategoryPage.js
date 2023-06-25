@@ -13,7 +13,7 @@ const CategoryPage = () => {
             <div>
                 <SelectCategory />
             </div>
-            <div>Ini category trending</div>
+            <div>trending</div>
           </div>
         </div>
       </div>

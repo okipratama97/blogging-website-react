@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const SelectCategory = () => {
   const [dataBlog, setDataBlog] = useState([]);
+  const { id } = useParams();
 
   const getDataBlog = async () => {
     try {
@@ -22,12 +24,12 @@ const SelectCategory = () => {
   return (
     <div>
       {dataBlog.map((item, index) => {
-        if (item.CategoryId === 2) {
+        if (item.CategoryId === parseInt(id)) {
           return (
             <div key={index}>
               <div>
                 <img
-                  src={`https://minpro-blog.purwadhikabootcamp.com/${item.User.username}`}
+                  src={`https://minpro-blog.purwadhikabootcamp.com/${item.User.imgProfile}`}
                   alt="User Avatar"
                 />
                 <div>
@@ -45,7 +47,7 @@ const SelectCategory = () => {
             </div>
           );
         }
-        
+        return null;
       })}
     </div>
   );

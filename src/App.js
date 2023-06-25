@@ -124,7 +124,7 @@ const App = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/business" element={<SelectCategory />} />
-          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/reset-password/:resetToken" element={<ResetPasswordForm />} />
 
         </Routes>
