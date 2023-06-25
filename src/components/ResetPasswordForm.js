@@ -1,83 +1,86 @@
-import { Formik } from "formik";
-import * as Yup from "yup";
 import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ResetPasswordForm = () => {
+    const token = localStorage.getItem("token");
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+  console.log(token);
 
-  const ResetSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Email tidak valid")
-      .required("Email harus diisi"),
+  const PasswordResetSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(6, "Password contains minimal 6 characters")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Password did not match")
+      .required("Please confirm your password"),
   });
 
-  const onReset = async (data) => {
+  const PassReset = async (data) => {
     try {
-      const response = await axios.put(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass",
-        data
-      );
+      console.log(data);
+      const response = await axios.patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass', data, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
       setSuccess(true);
+      navigate("/");
       console.log(response);
     } catch (err) {
+      console.log(err);
       setSuccess(false);
-      alert(err.response.data);
+      // alert(err.response.data)
     }
   };
-  
 
   return (
     <Formik
-    initialValues={{ email: "" }}
-    validationSchema={ResetSchema}
-    onSubmit={(values, actions) => {
-      actions.preventDefault(); // Menambahkan preventDefault
-      onReset(values);
-      if (success) {
-        actions.resetForm();
-      }
-    }}
-  >
-      <Formik
-  initialValues={{ email: '' }}
-  validationSchema={ResetSchema}
-  onSubmit={(values, actions) => {
-    onReset(values);
-    actions.resetForm();
-    setSuccess(true);
-  }}
->
-  {(props) => (
-    <form onSubmit={props.handleSubmit}>
-      {success && (
-        <p>We'll send you an email to change your password</p>
-      )}
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={props.values.email}
-          onChange={props.handleChange}
-          onBlur={props.handleBlur}
-        />
-        {props.errors.email && props.touched.email && (
-          <div>{props.errors.email}</div>
-        )}
-      </div>
-      <div>
+      initialValues={{ password: "", confirmPassword: "" }}
+      validationSchema={PasswordResetSchema}
+      onSubmit={(values, actions) => {
+        PassReset(values);
+        if (success) {
+          actions.resetForm();
+        }
+      }}
+    >
+      <Form>
+        <div>
+          <h1>Reset your password</h1>
+          <p>Enter your new password</p>
+        </div>
+        <div>
+          <Field
+            type={show ? "text" : "password"}
+            name="password"
+            placeholder="Enter your password"
+          />
+          <button type="button" onClick={handleClick}>
+            {show ? "Hide" : "Show"}
+          </button>
+          <ErrorMessage name="password" component="div" />
+        </div>
+        <div>
+          <Field
+            type={show ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="Re-enter your password"
+          />
+          <button type="button" onClick={handleClick}>
+            {show ? "Hide" : "Show"}
+          </button>
+          <ErrorMessage name="confirmPassword" component="div" />
+        </div>
         <button type="submit">Submit</button>
-      </div>
-      <a href="http://localhost:3000/login">Back to login</a>
-    </form>
-  )}
-</Formik>
-
-
+      </Form>
     </Formik>
   );
 };
 
-export default ResetPasswordForm;
+export default ResetPasswordForm

@@ -8,11 +8,10 @@ import { Home } from './components/Home'
 import { useDispatch } from 'react-redux'
 import { setValue } from './redux/user'
 
-import RegisterForm from './components/RegistrationForm'
+import ForgotPassword from './components/ForgotPassword'
 import VerifyAccountPage from './components/VerifyAccountPage'
 import LoginForm from './components/LoginForm'
 import ChangePasswordForm from './components/ChangePasswordForm'
-import ResetPasswordForm from './components/ResetPasswordForm'
 import UpdateProfileForm from './components/UpdateProfileForm'
 import UploadProfilePictureForm from './components/UploadProfilePictureForm'
 import MyBlogsPage from './components/MyBlogsPage'
@@ -24,6 +23,8 @@ import Profile from './components/Profile'
 import axios, { Axios } from 'axios'
 import SelectCategory from './categories/SelectCategory'
 import CategoryPage from './components/CategoryPage'
+import RegisterForm from './components/RegistrationForm'
+import ResetPasswordForm from './components/ResetPasswordForm'
 
 const App = () => {
   const token = localStorage.getItem("token")
@@ -69,7 +70,7 @@ const App = () => {
               <Link to="/change-password">Change Password</Link>
             </li>
             <li>
-              <Link to="/reset-password">Reset Password</Link>
+              <Link to="/forgot-password">Forgot Password</Link>
             </li>
             <li>
               <Link to="/update-profile">Update Profile</Link>
@@ -107,7 +108,7 @@ const App = () => {
           />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/change-password" element={<ChangePasswordForm />} />
-          <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/update-profile" element={<UpdateProfileForm />} />
           <Route
             path="/upload-profile-picture"
@@ -124,7 +125,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/business" element={<SelectCategory />} />
           <Route path="/category" element={<CategoryPage />} />
-
+          <Route path="/reset-password/:resetToken" element={<ResetPasswordForm />} />
 
         </Routes>
       </div>
