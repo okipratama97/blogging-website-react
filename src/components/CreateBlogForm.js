@@ -10,7 +10,7 @@ const BlogData = () => {
   const BlogSchema = Yup.object().shape({
     title: Yup.string().required("Please fill in your blog title"),
     keywords: Yup.string().required("Please fill in your keywords"),
-    categoryId: Yup.string().required("Please select a category"),
+    CategoryId: Yup.string().required("Please select a category"),
     content: Yup.string().required("Please enter your content"),
   });
 
@@ -31,8 +31,8 @@ const BlogData = () => {
   const createBlog = async (values) => {
     try {
       const formData = new FormData();
-      const { title, keywords, country, categoryId, url, content } = values;
-      formData.append("data", JSON.stringify({title, keywords, country, categoryId, url, content})) //use stryngify
+      const { title, keywords, country, CategoryId, url, content } = values;
+      formData.append("data", JSON.stringify({title, keywords, country, CategoryId, url, content})) //use stryngify
       formData.append("file", selectedFile);
 
       const response = await axios.post(
@@ -64,7 +64,7 @@ const BlogData = () => {
         title: "",
         keywords: "",
         country: "",
-        categoryId: "",
+        CategoryId: "",
         url: "",
         content: "",
         file: null,
@@ -89,8 +89,8 @@ const BlogData = () => {
           <ErrorMessage name="country" component="div" />
         </div>
         <div>
-          <label htmlFor="categoryId">Category</label>
-          <Field as="select" name="categoryId">
+          <label htmlFor="CategoryId">Category</label>
+          <Field as="select" name="CategoryId">
             <option value="">Select category</option>
             {category.map((category) => (
               <option key={category.id} value={category.id}>
@@ -98,7 +98,7 @@ const BlogData = () => {
               </option>
             ))}
           </Field>
-          <ErrorMessage name="categoryId" component="div" />
+          <ErrorMessage name="CategoryId" component="div" />
         </div>
         <div>
           <label htmlFor="file">Image</label>
