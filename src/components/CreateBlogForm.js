@@ -1,97 +1,123 @@
-// Create Blog form
-// Using Formik and Yup validator for input user data
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
 
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+const BlogData = () => {
+  const [category, setCategory] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-// Validation schema using Yup
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required('Title is required'),
-  author: Yup.string().required('Author is required'),
-  publicationDate: Yup.date().required('Publication date is required'),
-  image: Yup.string().required('Image is required'),
-  category: Yup.string().required('Category is required'),
-  content: Yup.string().required('Content is required'),
-  video: Yup.string().url('Invalid URL').required('Video is required'),
-  keywords: Yup.string().required('Keywords are required'),
-});
+  const BlogSchema = Yup.object().shape({
+    title: Yup.string().required("Please fill in your blog title"),
+    keywords: Yup.string().required("Please fill in your keywords"),
+    categoryId: Yup.string().required("Please select a category"),
+    content: Yup.string().required("Please enter your content"),
+  });
 
-const CreateBlogForm = () => {
-  // Handle form submission
-  const onSubmit = (values, { setSubmitting }) => {
-    // Perform create blog logic, e.g., send data to the server
-    console.log(values);
-
-    // Reset form fields and set submitting state
-    setSubmitting(false);
+  const fetchCategories = async (data) => {
+    try {
+      const response = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog/allCategory", data
+      );
+      setCategory(response.data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
+
+
+  const createBlog = async (values) => {
+    try {
+      const formData = new FormData();
+      const { title, keywords, country, categoryId, url, content } = values;
+      formData.append("data", JSON.stringify({title, keywords, country, categoryId, url, content})) //use stryngify
+      formData.append("file", selectedFile);
+
+      const response = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const data = response.data;
+      console.log(data);
+      // Navigate or perform other actions
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
-    <div>
-      <h2>Create Blog</h2>
-      <Formik
-        initialValues={{
-          title: '',
-          author: '',
-          publicationDate: '',
-          image: '',
-          category: '',
-          content: '',
-          video: '',
-          keywords: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        <Form>
-          <div>
-            <label htmlFor="title">Title</label>
-            <Field type="text" name="title" />
-            <ErrorMessage name="title" component="div" />
-          </div>
-          <div>
-            <label htmlFor="author">Author</label>
-            <Field type="text" name="author" />
-            <ErrorMessage name="author" component="div" />
-          </div>
-          <div>
-            <label htmlFor="publicationDate">Publication Date</label>
-            <Field type="date" name="publicationDate" />
-            <ErrorMessage name="publicationDate" component="div" />
-          </div>
-          <div>
-            <label htmlFor="image">Image</label>
-            <Field type="text" name="image" />
-            <ErrorMessage name="image" component="div" />
-          </div>
-          <div>
-            <label htmlFor="category">Category</label>
-            <Field type="text" name="category" />
-            <ErrorMessage name="category" component="div" />
-          </div>
-          <div>
-            <label htmlFor="content">Content</label>
-            <Field as="textarea" name="content" />
-            <ErrorMessage name="content" component="div" />
-          </div>
-          <div>
-            <label htmlFor="video">Video</label>
-            <Field type="text" name="video" />
-            <ErrorMessage name="video" component="div" />
-          </div>
-          <div>
-            <label htmlFor="keywords">Keywords</label>
-            <Field type="text" name="keywords" />
-            <ErrorMessage name="keywords" component="div" />
-          </div>
-          <div>
-            <button type="submit">Create Blog</button>
-          </div>
-        </Form>
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{
+        title: "",
+        keywords: "",
+        country: "",
+        categoryId: "",
+        url: "",
+        content: "",
+        file: null,
+      }}
+      validationSchema={BlogSchema}
+      onSubmit={createBlog}
+    >
+      <Form>
+        <div>
+          <label htmlFor="title">Title</label>
+          <Field type="text" name="title" />
+          <ErrorMessage name="title" component="div" />
+        </div>
+        <div>
+          <label htmlFor="keywords">Keywords</label>
+          <Field type="text" name="keywords" />
+          <ErrorMessage name="keywords" component="div" />
+        </div>
+        <div>
+          <label htmlFor="country">Country</label>
+          <Field type="text" name="country" />
+          <ErrorMessage name="country" component="div" />
+        </div>
+        <div>
+          <label htmlFor="categoryId">Category</label>
+          <Field as="select" name="categoryId">
+            <option value="">Select category</option>
+            {category.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </Field>
+          <ErrorMessage name="categoryId" component="div" />
+        </div>
+        <div>
+          <label htmlFor="file">Image</label>
+          <Field
+            type="file"
+            name="file"
+            onChange={(event) => setSelectedFile(event.target.files[0])}
+          />
+          <ErrorMessage name="file" component="div" />
+        </div>
+        <div>
+          <label htmlFor="content">Content</label>
+          <Field as="textarea" name="content" />
+          <ErrorMessage name="content" component="div" />
+        </div>
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
   );
 };
 
-export default CreateBlogForm;
+export default BlogData;
