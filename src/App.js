@@ -22,6 +22,8 @@ import BlogDetailPage from './components/BlogDetailPage'
 import FilterAndSortBlogs from './components/FilterAndSortBlogs'
 import Profile from './components/Profile'
 import axios, { Axios } from 'axios'
+import SelectCategory from './categories/SelectCategory'
+import CategoryPage from './components/CategoryPage'
 
 const App = () => {
   const token = localStorage.getItem("token")
@@ -120,6 +122,10 @@ const App = () => {
             element={<FilterAndSortBlogs />}
           />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/business" element={<SelectCategory />} />
+          <Route path="/category" element={<CategoryPage />} />
+
+
         </Routes>
       </div>
     </Router>
