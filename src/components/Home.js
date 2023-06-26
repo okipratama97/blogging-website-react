@@ -1,9 +1,8 @@
 import React from 'react'
+import { BlogList } from './BlogList'
 
 export const Home = () => {
   return (
-    <div>
-      This is Home
-    </div>
+    <BlogList />
   )
 }

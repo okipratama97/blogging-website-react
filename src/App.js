@@ -25,6 +25,7 @@ import SelectCategory from './categories/SelectCategory'
 import CategoryPage from './components/CategoryPage'
 import RegisterForm from './components/RegistrationForm'
 import ResetPasswordForm from './components/ResetPasswordForm'
+import Navbar from './components/Navbar'
 
 const App = () => {
   const token = localStorage.getItem("token")
@@ -55,52 +56,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/verification">Verify Account</Link>
-            </li>
-            <li>
-              <Link to="/change-password">Change Password</Link>
-            </li>
-            <li>
-              <Link to="/forgot-password">Forgot Password</Link>
-            </li>
-            <li>
-              <Link to="/update-profile">Update Profile</Link>
-            </li>
-            <li>
-              <Link to="/upload-profile-picture">Upload Profile Picture</Link>
-            </li>
-            <li>
-              <Link to="/my-blogs">My Blogs</Link>
-            </li>
-            <li>
-              <Link to="/favorite-blogs">Favorite Blogs</Link>
-            </li>
-            <li>
-              <Link to="/create-blog">Create Blog</Link>
-            </li>
-            <li>
-              <Link to="/blog-detail">Blog Detail</Link>
-            </li>
-            <li>
-              <Link to="/filter-sort-blogs">Filter and Sort Blogs</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/category">Category</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />

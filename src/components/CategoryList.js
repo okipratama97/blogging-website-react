@@ -21,16 +21,22 @@ const CategoryList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Category</h2>
-      <ul>
-        {categories.map((category, index) => (
-          <li key={index}>
-            <a href={`/category/${category.id}`}>{category.name}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <div class="bg-black text-white">
+    <h2 class="text-2xl font-bold mb-4">Category</h2>
+    <ul class="flex flex-wrap">
+      {categories.map((category, index) => (
+        <li key={index} class="mr-4 mb-2">
+          <a
+            href={`/category/${category.id}`}
+            class="px-4 py-2 bg-red-600 rounded-lg text-white hover:bg-red-700"
+          >
+            {category.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  
   );
 };
 

@@ -5,7 +5,6 @@ const CategoryPage = () => {
     return (
       <div>
         <div>
-          <div id="header">navbar</div>
           <div>
             <div>
                 <CategoryList />

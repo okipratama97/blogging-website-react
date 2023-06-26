@@ -173,38 +173,27 @@ const Profile = () => {
     }, 3000)
   }
 
-  const handleLogout = () => {
-    // Hapus token dari local storage
-    localStorage.removeItem('token');
-    
-    // Dispatch action logoutUser untuk menghapus data user dari Redux store
-    dispatch(logoutUser);
 
-    // Redirect ke halaman login
-    navigate('/login');
-  };
 
   return (
-    <div>
-      <div mt="20px">
-        <div>
-          <label htmlFor="file">Profile Picture</label>
-          <input
-            type="file"
-            id="file"
-            h="29px"
-            w="620px"
-            color="#FF4C29"
-            size="s"
-            borderRadius="5px"
-            onChange={handleFileChange}
-          />
-        </div>
-        <button mt="30px" h="30px" w="90px" onClick={updateImage}>
+    <div class="bg-black text-white py-10 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-4">Profile Picture</h1>
+        <input
+          type="file"
+          id="file"
+          onChange={handleFileChange}
+          class="border border-red-600 rounded px-4 py-2"
+        />
+        <button
+          onClick={updateImage}
+          class="bg-red-600 text-white px-4 py-2 rounded mt-4"
+        >
           Submit
         </button>
       </div>
-
+  
       <Formik
         initialValues={{
           newUsername: '',
@@ -212,20 +201,32 @@ const Profile = () => {
         validationSchema={validationSchemaUsername}
         onSubmit={updateUsername}
       >
-        <Form className="text-green">
-          <div>
-            <label htmlFor="newUsername">Username</label>
-            <Field type="text" name="newUsername" placeholder={username} />
-            <ErrorMessage name="newUsername" component="div" />
+        <Form>
+          <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">Username</h1>
+            <Field
+              type="text"
+              name="newUsername"
+              placeholder={username}
+              class="border border-red-600 rounded px-4 py-2"
+            />
+            <ErrorMessage
+              name="newUsername"
+              component="div"
+              class="text-red-600"
+            />
           </div>
           <div>
-            <button type="submit" mt="8px" h="35px" w="150px">
+            <button
+              type="submit"
+              class="bg-red-600 text-white px-4 py-2 rounded"
+            >
               Submit
             </button>
           </div>
         </Form>
       </Formik>
-
+  
       <Formik
         initialValues={{
           newEmail: '',
@@ -233,20 +234,32 @@ const Profile = () => {
         validationSchema={validationSchemaEmail}
         onSubmit={updateEmail}
       >
-        <Form className="text-green">
-          <div>
-            <label htmlFor="newEmail">Email</label>
-            <Field type="text" name="newEmail" placeholder={email} />
-            <ErrorMessage name="newEmail" component="div" />
+        <Form>
+          <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">Email</h1>
+            <Field
+              type="text"
+              name="newEmail"
+              placeholder={email}
+              class="border border-red-600 rounded px-4 py-2"
+            />
+            <ErrorMessage
+              name="newEmail"
+              component="div"
+              class="text-red-600"
+            />
           </div>
           <div>
-            <button type="submit" mt="8px" h="35px" w="150px">
+            <button
+              type="submit"
+              class="bg-red-600 text-white px-4 py-2 rounded"
+            >
               Submit
             </button>
           </div>
         </Form>
       </Formik>
-
+  
       <Formik
         initialValues={{
           newPhone: '',
@@ -254,20 +267,32 @@ const Profile = () => {
         validationSchema={validationSchemaPhone}
         onSubmit={updatePhone}
       >
-        <Form className="text-green">
-          <div>
-            <label htmlFor="newPhone">Phone</label>
-            <Field type="text" name="newPhone" placeholder={phone} />
-            <ErrorMessage name="newPhone" component="div" />
+        <Form>
+          <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">Phone</h1>
+            <Field
+              type="text"
+              name="newPhone"
+              placeholder={phone}
+              class="border border-red-600 rounded px-4 py-2"
+            />
+            <ErrorMessage
+              name="newPhone"
+              component="div"
+              class="text-red-600"
+            />
           </div>
           <div>
-            <button type="submit" mt="8px" h="35px" w="150px">
+            <button
+              type="submit"
+              class="bg-red-600 text-white px-4 py-2 rounded"
+            >
               Submit
             </button>
           </div>
         </Form>
       </Formik>
-
+  
       <Formik
         initialValues={{
           password: '',
@@ -277,81 +302,62 @@ const Profile = () => {
         validationSchema={validationSchemaPassword}
         onSubmit={updatePassword}
       >
-        <Form className="text-green">
-          <div>
-            <label htmlFor="currentPassword">Old Password</label>
-            <Field type="password" name="currentPassword" />
-            <ErrorMessage name="currentPassword" component="div" />
+        <Form>
+          <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">Password</h1>
+            <div>
+              <label for="currentPassword">Old Password</label>
+              <Field
+                type="password"
+                name="currentPassword"
+                class="border border-red-600 rounded px-4 py-2"
+              />
+              <ErrorMessage
+                name="currentPassword"
+                component="div"
+                class="text-red-600"
+              />
+            </div>
+            <div>
+              <label for="password">New Password</label>
+              <Field
+                type="password"
+                name="password"
+                class="border border-red-600 rounded px-4 py-2"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                class="text-red-600"
+              />
+            </div>
+            <div>
+              <label for="confirmPassword">Confirm New Password</label>
+              <Field
+                type="password"
+                name="confirmPassword"
+                class="border border-red-600 rounded px-4 py-2"
+              />
+              <ErrorMessage
+                name="confirmPassword"
+                component="div"
+                class="text-red-600"
+              />
+            </div>
           </div>
           <div>
-            <label htmlFor="password">New Password</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword">Confirm New Password</label>
-            <Field type="password" name="confirmPassword" />
-            <ErrorMessage name="confirmPassword" component="div" />
-          </div>
-          <div>
-            <button type="submit" mt="8px" h="35px" w="150px">
+            <button
+              type="submit"
+              class="bg-red-600 text-white px-4 py-2 rounded"
+            >
               Submit
             </button>
           </div>
-            <div>
-          <button onClick={handleLogout}>Logout</button>
-            </div>
         </Form>
       </Formik>
-
-      {/* <form mt="20px">
-        <div>
-          <label>Password</label>
-          <div>
-            <input
-              name="currentPassword"
-              type={show ? 'text' : 'password'}
-              h="35px"
-              w="300px"
-              color="#FF4C29"
-              placeholder="Current password"
-            />
-            <button onClick={handleClick} variant="none" mt="10px">
-              {show ? 'Hide' : 'Show'}
-            </button>
-          </div>
-          <div>
-            <input
-              name="password"
-              type={show ? 'text' : 'password'}
-              h="35px"
-              w="300px"
-              color="#FF4C29"
-              placeholder="New password"
-            />
-            <button onClick={handleClick} variant="none" mt="10px">
-              {show ? 'Hide' : 'Show'}
-            </button>
-          </div>
-          <div>
-            <input
-              name="confirmPassword"
-              type={show ? 'text' : 'password'}
-              h="35px"
-              w="300px"
-              color="#FF4C29"
-              placeholder="Confirm new password"
-            />
-            <button onClick={handleClick} variant="none" mt="10px">
-              {show ? 'Hide' : 'Show'}
-            </button>
-          </div>
-          <button type="submit" mt="8px" h="35px" w="150px">
-            Submit
-          </button>
-        </div>
-      </form> */}
     </div>
+  </div>
+  
   )
 }
 

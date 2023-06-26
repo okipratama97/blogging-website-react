@@ -1,6 +1,3 @@
-// Login form
-// Using Formik and Yup validator for input user data
-
 import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setValue } from "../redux/user";
 
-// Validation schema using Yup
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
@@ -23,16 +19,12 @@ const LoginForm = () => {
     const token = localStorage.getItem("token");
     console.log(token);
     if (token) {
-      // If the user is already logged in, redirect the navigation to the home page
       navigate("/");
     }
   }, []);
 
-  // Handle form submission
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      // Perform login logic, e.g., send data to the server
-
       const email = values.email;
       const password = values.password;
       const res = await axios.post(
@@ -45,10 +37,8 @@ const LoginForm = () => {
 
       console.log("res:", res.data);
 
-      // save token to local storage
       localStorage.setItem("token", res.data.token);
 
-      // save account data to redux
       dispatch(setValue(res.data.isAccountExist));
 
       setTimeout(() => {
@@ -57,7 +47,6 @@ const LoginForm = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      // Reset form fields and set submitting state
       setSubmitting(false);
     }
   };
@@ -67,8 +56,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="flex flex-col items-center justify-center h-screen bg-black text-white">
+      <h2 className="text-3xl font-bold mb-8">Login</h2>
       <Formik
         initialValues={{
           email: "",
@@ -77,21 +66,51 @@ const LoginForm = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <Form>
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field type="text" name="email" />
-            <ErrorMessage name="email" component="div" />
+        <Form className="flex flex-col items-start">
+          <div className="mb-4">
+            <label htmlFor="email" className="font-semibold mr-10">
+              Email
+            </label>
+            <Field
+              type="text"
+              name="email"
+              className="px-4 py-2 rounded-md bg-gray-800 text-white w-72"
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-500 mt-1"
+            />
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
+          <div className="mb-4">
+            <label htmlFor="password" className="font-semibold mr-2">
+              Password
+            </label>
+            <Field
+              type="password"
+              name="password"
+              className="px-4 py-2 rounded-md bg-gray-800 text-white w-72"
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="text-red-500 mt-1"
+            />
           </div>
-          <div>
-            <button type="submit">Login</button>
+          <div className="mb-4">
+            <button
+              type="submit"
+              className="bg-red-600 px-4 py-2 rounded-md text-white font-semibold hover:bg-red-700 transition"
+            >
+              Login
+            </button>
           </div>
-          <a href="http://localhost:3000/reset-password">Forgot Password</a>
+          <a
+            href="http://localhost:3000/forgot-password"
+            className="text-gray-400 hover:text-gray-200"
+          >
+            Forgot Password
+          </a>
         </Form>
       </Formik>
     </div>
