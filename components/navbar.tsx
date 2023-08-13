@@ -8,7 +8,7 @@ import getCategories from "@/actions/get-categories";
 export const revalidate = 0; //never cached
 
 const Navbar = async () => {
-  // const categories = await getCategories(); // buat ngeget category dari cms
+  const categories = await getCategories(); // buat ngeget category dari cms
 
   return ( 
     <div className="border-b">
@@ -17,7 +17,7 @@ const Navbar = async () => {
           <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
             <p className="font-bold text-xl">STOCKSHOP</p>
           </Link>
-          {/* <MainNav data={[]}/> to render routes */} <div className="mx-5"> <p>Categories</p> </div>
+          <MainNav data={categories}/>
           <NavbarActions />
         </div>
       </Container>

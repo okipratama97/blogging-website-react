@@ -11,8 +11,8 @@ import { Billboard } from "@/types";
 // data for the Billboard
 const res: Billboard = {
   id: "1",
-  label: "Sayur Segar Petani",
-  imageUrl: "https://i0.wp.com/resepkoki.id/wp-content/uploads/2018/03/sayur-mayur-Cropped-1.jpg?fit=800%2C800&ssl=1",
+  label: "New Arrivals",
+  imageUrl: "https://i.pinimg.com/1200x/fd/42/9d/fd429d07fdc96db534672499565c5a9c.jpg",
 };
 
 const getBillboard = async (id: string): Promise<Billboard> => {

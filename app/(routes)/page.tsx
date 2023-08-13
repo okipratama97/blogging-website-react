@@ -12,11 +12,11 @@ const HomePage = async () => {
 
   return (
     <Container>
-      <div className="space-y-10 pb-10 text-white [text-shadow:_0_2px_0_rgb(0_0_0_/_70%)]">
+      <div className="space-y-10 pb-10">
         <Billboard data={billboard}/>
-      </div>
-      <div className="flex flex-col gap-y-8 px-4 sm:px-4 lg:px-8">
-        <ProductList title="Featured Products" items={products} />
+        <div className="flex flex-col gap-y-8 px-4 sm:px-4 lg:px-8">
+          <ProductList title="Featured Products" items={products} />
+        </div>
       </div>
     </Container>
   )
