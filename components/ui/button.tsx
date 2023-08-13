@@ -32,6 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         className // override by navbar-actions or className used in button in other file
       )}
       ref={ref}
+      {...props}
     >
       {children}
     </button>
