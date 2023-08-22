@@ -2,7 +2,7 @@
 const nextConfig = {
   images: { // configure hotname for images
     domains: [
-      "raw.githubusercontent.com"
+      "raw.githubusercontent.com",
     ]
   }
 }

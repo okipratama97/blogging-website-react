@@ -13,7 +13,7 @@ const dummyColors: Color[] = [
   {
     id: "1",
     name: "Red",
-    value: "#FF0000",
+    value: "#000000",
   },
   {
     id: "2",

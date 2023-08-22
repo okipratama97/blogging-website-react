@@ -38,7 +38,7 @@ const simulatedSizeData: Size[] = [
 
 // Simulating color data
 const simulatedColorData: Color[] = [
-  { id: "1", name: "Red", value: "#FF0000" },
+  { id: "1", name: "Red", value: "#000000" },
   { id: "2", name: "Blue", value: "#0000FF" },
   { id: "3", name: "Green", value: "#00FF00" },
   // Add more simulated colors as needed
