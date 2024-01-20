@@ -6,7 +6,7 @@ import { Image as ImageType } from "@/types";
 import React from "react";
 
 interface GalleryTabProps {
-  image: ImageType
+  image: string
 }
 
 const GalleryTab: React.FC<GalleryTabProps> = ({
@@ -19,8 +19,9 @@ const GalleryTab: React.FC<GalleryTabProps> = ({
           <span className="absolute h-full w-full aspect-square inset-0 overflow-hidden rounded-md">
             <Image 
               fill
-              src={image.url}
+              src={image}
               className="object-cover object-center"
+              alt="Image"
             />
           </span>
           <span className={cn(

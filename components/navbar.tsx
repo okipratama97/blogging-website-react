@@ -8,7 +8,7 @@ import getCategories from "@/actions/get-categories";
 export const revalidate = 0; //never cached
 
 const Navbar = async () => {
-  const categories = await getCategories(); // buat ngeget category dari cms
+  const categories = await getCategories()
 
   return ( 
     <div className="border-b">

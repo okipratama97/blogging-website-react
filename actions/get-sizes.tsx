@@ -11,17 +11,17 @@ import { Size } from "@/types";
 // Sample dummy size data
 const dummySizes: Size[] = [
   {
-    id: "1",
+    id: "Small",
     name: "Small",
     value: "S",
   },
   {
-    id: "2",
+    id: "Medium",
     name: "Medium",
     value: "M",
   },
   {
-    id: "3",
+    id: "Large",
     name: "Large",
     value: "L",
   },

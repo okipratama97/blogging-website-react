@@ -1,32 +1,51 @@
 import qs from "query-string";
 
-import { Product, Size, Color, Category, Image, Billboard } from "@/types";
+import { Product, Size, Color, Category, Billboard } from "@/types";
 
-// const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
+const _URL = `${process.env.NEXT_PUBLIC_API_URL}/items/public`;
 
-// interface Query {
-//   categoryId?: string;
-//   colorId?: string;
-//   sizeId?: string;
-//   isFeatured?: string;
-// }
+interface Query {
+  category_id?: string;
+  page?: number;
+  limit?: number;
+  order?: string;
+  sort?: "ASC" | "DESC";
+  search?: string;
+  min_price?: number;
+  max_price?: number;
+}
 
-// const getProducts = async (query: Query): Promise<Product[]> => {
-//   const url = qs.stringifyUrl({
-//     url: URL,
-//     query: {
-//       colorId: query.colorId,
-//       sizeId: query.sizeId,
-//       categoryId: query.sizeId,
-//       isFeatured: query.isFeatured
-//     },
-//   });
+const getProducts = async (query: Query): Promise<Product[]> => {
+  const url = qs.stringifyUrl({
+    url: _URL,
+    query: {
+      category_id: query.category_id,
+      page: query.page,
+      limit: query.limit,
+      order: query.order,
+      sort: query.sort,
+      search: query.search,
+      max_price: query.max_price
+    },
+  });
 
-//   const res = await fetch(url);
+  const res = await fetch(url);
 
-//   return res.json();
+  const {data} = await res.json(); 
 
-// }
+  return data
+
+}
+
+
+// const URL = `${process.env.NEXT_PUBLIC_API_URL}/items/public`;
+
+// const getItems = async (): Promise<Category[]> => {
+//   const res = await fetch(URL +"?"+ new URLSearchParams({page: "1", limit:"1", order: "created_at", sort: "asc"}))
+//   const {data} = await res.json(); 
+
+//   return data
+// };
 
 // Simulating size data
 const simulatedSizeData: Size[] = [
@@ -44,13 +63,6 @@ const simulatedColorData: Color[] = [
   // Add more simulated colors as needed
 ];
 
-// Simulating image data
-const simulatedImageData: Image[] = [
-  { id: "1", url: "https://raw.githubusercontent.com/helvizar/ecommerce-catalog/master/public/man-jaket.png" },
-  { id: "2", url: "https://raw.githubusercontent.com/helvizar/ecommerce-catalog/master/public/man-shirt.png" },
-  // Add more simulated images as needed
-];
-
 // Simulating billboard data
 const simulatedBillboardData: Billboard = {
   id: "1",
@@ -58,42 +70,31 @@ const simulatedBillboardData: Billboard = {
   imageUrl: "https://example.com/images/featured-product.jpg",
 };
 
-// Simulating category data
-const simulatedCategoryData: Category[] = [
-  {
-    id: "1",
-    name: "Electronics",
-    billboard: simulatedBillboardData,
-  },
-  {
-    id: "2",
-    name: "Clothing",
-    billboard: simulatedBillboardData,
-  },
-  // Add more simulated categories as needed
-];
-
 // Simulating product data
 const simulatedProductData: Product[] = [
   {
     id: "1",
-    category: simulatedCategoryData[0],
     name: "Example Product 1",
-    price: "99.99",
-    isFeatured: true,
-    size: simulatedSizeData[0],
-    color: simulatedColorData[0],
-    images: [simulatedImageData[0]],
+    images: ["https://raw.githubusercontent.com/helvizar/ecommerce-catalog/master/public/man-jaket.png"],
+    description: "is item",
+    price: 99,
+    stock: 1,
+    status: "AVAILABLE",
+    is_featured: true,
+    options: {},
+    // category: ,
   },
   {
     id: "2",
-    category: simulatedCategoryData[1],
     name: "Example Product 2",
-    price: "149.99",
-    isFeatured: false,
-    size: simulatedSizeData[1],
-    color: simulatedColorData[1],
-    images: [simulatedImageData[1]],
+    images: ["https://raw.githubusercontent.com/helvizar/ecommerce-catalog/master/public/man-shirt.png"],
+    description: "is item",
+    price: 99,
+    stock: 1,
+    status: "AVAILABLE",
+    is_featured: true,
+    options: {},
+    // category: ,
   },
   // Add more simulated products as needed
 ];
@@ -105,10 +106,10 @@ interface Query {
   isFeatured?: boolean;
 }
 
-const getProducts = async (query: Query): Promise<Product[]> => {
+// const getProducts = async (query: Query): Promise<Product[]> => {
   // In a real application, this would involve fetching data from your API
   // For now, we'll return the simulated product data
-  return simulatedProductData;
-};
+//   return simulatedProductData;
+// };
 
 export default getProducts;
