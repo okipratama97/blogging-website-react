@@ -10,12 +10,14 @@ interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  options?: any;
 };
 
 const Modal: React.FC<ModalProps> = ({
   open,
   onClose,
-  children
+  children,
+  options
 }) => {
   return (
     <Transition show={open} appear as={Fragment}>
@@ -38,9 +40,9 @@ const Modal: React.FC<ModalProps> = ({
               <Dialog.Panel className="w-full max-w-3xl overflow-hidden rounded-lg text-left align-middle">
 
                 <div className="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                  <div className="absolute right-4 top-4">
+                  { options?.isDisableX || <div className="absolute right-4 top-4">
                     <IconButton onClick={onClose} icon={<X size={15} />} />
-                  </div>
+                  </div> }
                   {children}
                 </div>
 
