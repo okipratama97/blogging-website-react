@@ -30,11 +30,13 @@ const Summary = () => {
   }, 0);
 
   const onCheckout = async () => {
-     const response = await axios.post(`${process.env.NEXT_API_PUBLIC_URL}/checkout`, { // api route
-      productIds: items.map((item) => item.id),
-     });
+    //  const response = await axios.post(`${process.env.NEXT_API_PUBLIC_URL}/checkout`, { // api route
+    //   productIds: items.map((item) => item.id),
+    //  });
 
-     window.location = response.data.url;
+    //  window.location = response.data.url;
+
+    toast.success("Thankyou, we will implement the checkout feature soon!")
   }
 
   return (
