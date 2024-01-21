@@ -6,12 +6,14 @@ import useAuthModal from "@/hooks/use-auth-modal";
 import Modal from "./ui/modal";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 
 const AuthModal = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const authModal = useAuthModal()
+    const router = useRouter();
     const _setIsLogin = (input: boolean) => {}
     const setIsLogin = useAuthModal((state) => state.setIsLogin) || _setIsLogin
 
@@ -22,6 +24,7 @@ const AuthModal = () => {
           Cookies.set("access_token", response?.access_token)
           toast.success(email)
           setIsLogin(true)
+          router.refresh()
           authModal.onClose()
         }
         setEmail("")
