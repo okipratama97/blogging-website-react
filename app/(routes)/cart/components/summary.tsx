@@ -1,13 +1,16 @@
 "use client";
 
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
+import Cookies from "js-cookie";
+
 
 const Summary = () => {
   const searchParams = useSearchParams();
@@ -24,6 +27,9 @@ const Summary = () => {
       toast.error("Something went wrong");
     }
   }, [searchParams, removeAll]);
+
+  const router = useRouter()
+  if (!Cookies.get("access_token")) router.push("/")
 
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.price);

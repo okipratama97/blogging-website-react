@@ -6,6 +6,7 @@ import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
 import Button from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
+import Cookies from "js-cookie";
 
 interface InfoProps {
   data: Product
@@ -15,9 +16,10 @@ const Info: React.FC<InfoProps> = ({
   data
 }) => {
   const cart = useCart();
+  const isLogin = Cookies.get("access_token") ? true : false
 
   const onAddToCart = (event: any) => {
-    cart.addItem(data);
+    if (isLogin) cart.addItem(data)
   }
 
   return ( 

@@ -10,6 +10,7 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import useCart from "@/hooks/use-cart";
+import Cookies from "js-cookie";
 
 interface ProductCard {
   data: Product;
@@ -21,6 +22,7 @@ const ProductCard: React.FC<ProductCard> = ({
   const cart = useCart();
   const previewModal = usePreviewModal();
   const router = useRouter();
+  const isLogin = Cookies.get("access_token") ? true : false
 
   const handleClick = () => {
     router.push(`/product/${data?.id}`);
@@ -34,8 +36,8 @@ const ProductCard: React.FC<ProductCard> = ({
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation(); //override the main "div onClick"
-
-    cart.addItem(data);
+    
+    if (isLogin) cart.addItem(data)
   }
 
   return ( 
